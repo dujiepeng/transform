@@ -27,6 +27,22 @@
     return easemob;
 }
 
+- (EMError *)registerSDKWithAppKey:(NSString *)anAppKey
+                      apnsCertName:(NSString *)anAPNSCertName
+                       otherConfig:(NSDictionary *)anOtherConfig{
+    EMOptions *option = [EMOptions optionsWithAppkey:anAppKey];
+    if (anAPNSCertName) {
+        option.apnsCertName = anAPNSCertName;
+    }
+    
+    if ([[anOtherConfig objectForKey:kSDKConfigEnableConsoleLogger] boolValue]) {
+        option.enableConsoleLog = YES;
+    }else {
+        option.enableConsoleLog = NO;
+    }
+
+    return [[EMClient sharedClient] initializeSDKWithOptions:option];
+}
 
 - (id<IChatManager>)chatManager
 {

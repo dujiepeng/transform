@@ -11,9 +11,9 @@
 
 @protocol IChatManagerLogin <IChatManagerBase>
 @property (nonatomic, strong, readonly) NSDictionary *loginInfo;
-@property (nonatomic, readonly) BOOL isLoggedIn;
-@property (nonatomic, readonly) BOOL isConnected;
-/*
+//@property (nonatomic, readonly) BOOL isLoggedIn;
+//@property (nonatomic, readonly) BOOL isConnected;
+
 - (EMError *)loadDataFromDatabase;
 
 - (BOOL)registerNewAccount:(NSString *)username
@@ -50,11 +50,11 @@
 - (void)asyncLogoffWithUnbindDeviceToken:(BOOL)isUnbind
                               completion:(void (^)(NSDictionary *info, EMError *error))completion
                                  onQueue:(dispatch_queue_t)aQueue;
- */
 
-- (void)asyncLoginWithUsername:(NSString *)username
-                      password:(NSString *)password;
 
-- (void)asyncLogoffWithUnbindDeviceToken:(BOOL)isUnbind;
+//- (void)asyncLoginWithUsername:(NSString *)username
+//                      password:(NSString *)password;
+//
+//- (void)asyncLogoffWithUnbindDeviceToken:(BOOL)isUnbind;
 
 @end

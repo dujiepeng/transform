@@ -13,6 +13,12 @@
 
 @required
 @property (nonatomic, strong, readonly) NSArray *groupList;
+
 - (NSArray *)loadAllMyGroupsFromDatabaseWithAppend2Chat:(BOOL)append2Chat;
+
+- (NSArray *)fetchMyGroupsListWithError:(EMError **)pError;
 - (void)asyncFetchMyGroupsList;
+- (void)asyncFetchMyGroupsListWithCompletion:(void (^)(NSArray *groups,
+                                                       EMError *error))completion
+                                     onQueue:(dispatch_queue_t)aQueue;
 @end

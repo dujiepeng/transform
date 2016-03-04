@@ -24,13 +24,14 @@
 		90E432A81C894E8400A93DC0 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 90E432961C894DD100A93DC0 /* libz.tbd */; };
 		90E432C01C894F6E00A93DC0 /* EChatManagerBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 90E432B11C894F6E00A93DC0 /* EChatManagerBase.m */; };
 		90E432C21C894F6E00A93DC0 /* EaseMob.m in Sources */ = {isa = PBXBuildFile; fileRef = 90E432B61C894F6E00A93DC0 /* EaseMob.m */; };
-		90E432C31C894F6E00A93DC0 /* EMError.m in Sources */ = {isa = PBXBuildFile; fileRef = 90E432BB1C894F6E00A93DC0 /* EMError.m */; };
 		90E432C41C894F6E00A93DC0 /* EMGCDMulticastDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 90E432BF1C894F6E00A93DC0 /* EMGCDMulticastDelegate.m */; };
 		90E432E81C89A20500A93DC0 /* EChatManager+Group.m in Sources */ = {isa = PBXBuildFile; fileRef = 90E432E71C89A20500A93DC0 /* EChatManager+Group.m */; };
 		90E432F31C89A9FE00A93DC0 /* EChatManager+Login.m in Sources */ = {isa = PBXBuildFile; fileRef = 90E432F21C89A9FE00A93DC0 /* EChatManager+Login.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		9060230C1C89EA5200073B1C /* EaseMobDefine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EaseMobDefine.h; sourceTree = "<group>"; };
+		9060230D1C89EDB100073B1C /* IChatManagerLoginDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IChatManagerLoginDelegate.h; sourceTree = "<group>"; };
 		90E432431C894CAF00A93DC0 /* SDKChange.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SDKChange.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		90E432471C894CAF00A93DC0 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		90E432491C894CAF00A93DC0 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -92,9 +93,6 @@
 		90E432B11C894F6E00A93DC0 /* EChatManagerBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EChatManagerBase.m; sourceTree = "<group>"; };
 		90E432B51C894F6E00A93DC0 /* EaseMob.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EaseMob.h; sourceTree = "<group>"; };
 		90E432B61C894F6E00A93DC0 /* EaseMob.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EaseMob.m; sourceTree = "<group>"; };
-		90E432BA1C894F6E00A93DC0 /* EMError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EMError.h; sourceTree = "<group>"; };
-		90E432BB1C894F6E00A93DC0 /* EMError.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EMError.m; sourceTree = "<group>"; };
-		90E432BC1C894F6E00A93DC0 /* EMErrorDefs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EMErrorDefs.h; sourceTree = "<group>"; };
 		90E432BE1C894F6E00A93DC0 /* EMGCDMulticastDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EMGCDMulticastDelegate.h; sourceTree = "<group>"; };
 		90E432BF1C894F6E00A93DC0 /* EMGCDMulticastDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EMGCDMulticastDelegate.m; sourceTree = "<group>"; };
 		90E432E21C89A0D000A93DC0 /* IChatManagerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IChatManagerDelegate.h; sourceTree = "<group>"; };
@@ -257,6 +255,7 @@
 				90E432B51C894F6E00A93DC0 /* EaseMob.h */,
 				90E432B61C894F6E00A93DC0 /* EaseMob.m */,
 				90E432B81C894F6E00A93DC0 /* Utils */,
+				9060230C1C89EA5200073B1C /* EaseMobDefine.h */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -277,6 +276,7 @@
 			children = (
 				90E432E21C89A0D000A93DC0 /* IChatManagerDelegate.h */,
 				90E432F61C89AD3C00A93DC0 /* IChatManagerGroupDelegate.h */,
+				9060230D1C89EDB100073B1C /* IChatManagerLoginDelegate.h */,
 			);
 			path = delegate;
 			sourceTree = "<group>";
@@ -308,20 +308,9 @@
 		90E432B81C894F6E00A93DC0 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				90E432B91C894F6E00A93DC0 /* EMError */,
 				90E432BD1C894F6E00A93DC0 /* EMGCDMulticastDelegate */,
 			);
 			path = Utils;
-			sourceTree = "<group>";
-		};
-		90E432B91C894F6E00A93DC0 /* EMError */ = {
-			isa = PBXGroup;
-			children = (
-				90E432BA1C894F6E00A93DC0 /* EMError.h */,
-				90E432BB1C894F6E00A93DC0 /* EMError.m */,
-				90E432BC1C894F6E00A93DC0 /* EMErrorDefs.h */,
-			);
-			path = EMError;
 			sourceTree = "<group>";
 		};
 		90E432BD1C894F6E00A93DC0 /* EMGCDMulticastDelegate */ = {
@@ -403,7 +392,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				90E432C31C894F6E00A93DC0 /* EMError.m in Sources */,
 				90E432C21C894F6E00A93DC0 /* EaseMob.m in Sources */,
 				90E4324E1C894CAF00A93DC0 /* ViewController.m in Sources */,
 				90E432F31C89A9FE00A93DC0 /* EChatManager+Login.m in Sources */,
@@ -568,6 +556,7 @@
 				90E4325C1C894CAF00A93DC0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

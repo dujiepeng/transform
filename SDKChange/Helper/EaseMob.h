@@ -9,9 +9,14 @@
 #import <Foundation/Foundation.h>
 #import "EMSDK.h"
 #import "IChatManager.h"
+#import "EaseMobDefine.h"
 
 @interface EaseMob : NSObject
 @property (nonatomic, readonly, strong) id<IChatManager> chatManager;
 + (instancetype)sharedInstance;
+
+- (EMError *)registerSDKWithAppKey:(NSString *)anAppKey
+                      apnsCertName:(NSString *)anAPNSCertName
+                       otherConfig:(NSDictionary *)anOtherConfig;
 
 @end

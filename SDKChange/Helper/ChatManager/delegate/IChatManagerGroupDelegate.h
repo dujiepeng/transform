@@ -10,6 +10,7 @@
 #import "EMGroupManagerDelegate.h"
 
 @protocol IChatManagerGroupDelegate <EMGroupManagerDelegate>
+@optional
 - (void)didUpdateGroupList:(NSArray *)groupList
                      error:(EMError *)error;
 @end

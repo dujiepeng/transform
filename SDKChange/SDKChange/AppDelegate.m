@@ -17,20 +17,34 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
-    EMOptions *option = [EMOptions optionsWithAppkey:@"easemob-demo#chatdemoui"];
-//    option.enableConsoleLog = YES;
-    [[EMClient sharedClient] initializeSDKWithOptions:option];
-    [[EMClient sharedClient] loginWithUsername:@"6001" password:@"111111"];
+
+    [[EaseMob sharedInstance] registerSDKWithAppKey:@"easemob-demo#chatdemoui"
+                                       apnsCertName:nil
+                                        otherConfig:@{kSDKConfigEnableConsoleLogger:@NO}];
     [[EaseMob sharedInstance].chatManager addDelegate:self delegateQueue:nil];
-    [[EaseMob sharedInstance].chatManager asyncFetchMyGroupsList];
+    
+
+    EMError *error = nil;
+    [[EaseMob sharedInstance].chatManager loginWithUsername:@"6001" password:@"111111" error:&error];
+    
+    [[EaseMob sharedInstance].chatManager asyncLogoffWithUnbindDeviceToken:YES];
     
     return YES;
 }
 
--(void)didUpdateGroupList:(NSArray *)groupList error:(EMError *)error{
-    
+
+-(void)didRegisterNewAccount:(NSString *)username
+                    password:(NSString *)password
+                       error:(EMError *)error{
+
 }
 
+-(void)didLogoffWithError:(EMError *)error{
+
+}
+
+-(void)didLoginWithInfo:(NSDictionary *)loginInfo error:(EMError *)error{
+
+}
 
 @end

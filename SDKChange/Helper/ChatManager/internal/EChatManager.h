@@ -10,5 +10,6 @@
 #define EMChatManager_h
 
 #import "EChatManager+Group.h"
+#import "EChatManager+Login.h"
 
 #endif /* EMChatManager_h */
