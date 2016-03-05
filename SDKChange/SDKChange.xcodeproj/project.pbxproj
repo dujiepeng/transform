@@ -7,26 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		903131F21C8A5D3D00F2091C /* EaseMob.m in Sources */ = {isa = PBXBuildFile; fileRef = 90E432B61C894F6E00A93DC0 /* EaseMob.m */; };
-		903131F31C8A5D3D00F2091C /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 90E4324D1C894CAF00A93DC0 /* ViewController.m */; };
-		903131F41C8A5D3D00F2091C /* EChatManager+Login.m in Sources */ = {isa = PBXBuildFile; fileRef = 90E432F21C89A9FE00A93DC0 /* EChatManager+Login.m */; };
-		903131F51C8A5D3D00F2091C /* EMGCDMulticastDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 90E432BF1C894F6E00A93DC0 /* EMGCDMulticastDelegate.m */; };
-		903131F61C8A5D3D00F2091C /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 90E4324A1C894CAF00A93DC0 /* AppDelegate.m */; };
-		903131F71C8A5D3D00F2091C /* EChatManager+Group.m in Sources */ = {isa = PBXBuildFile; fileRef = 90E432E71C89A20500A93DC0 /* EChatManager+Group.m */; };
-		903131F81C8A5D3D00F2091C /* EChatManagerBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 90E432B11C894F6E00A93DC0 /* EChatManagerBase.m */; };
-		903131F91C8A5D3D00F2091C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 90E432471C894CAF00A93DC0 /* main.m */; };
-		903131FB1C8A5D3D00F2091C /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 90E432961C894DD100A93DC0 /* libz.tbd */; };
-		903131FC1C8A5D3D00F2091C /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 90E432941C894DC400A93DC0 /* libc++.tbd */; };
-		903131FD1C8A5D3D00F2091C /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 90E4328A1C894D2400A93DC0 /* libsqlite3.tbd */; };
-		903131FE1C8A5D3D00F2091C /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90E4329A1C894DEF00A93DC0 /* ImageIO.framework */; };
-		903131FF1C8A5D3D00F2091C /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90E432921C894DB700A93DC0 /* MobileCoreServices.framework */; };
-		903132001C8A5D3D00F2091C /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90E4329F1C894E1C00A93DC0 /* SystemConfiguration.framework */; };
-		903132011C8A5D3D00F2091C /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90E432821C894CFC00A93DC0 /* CoreMedia.framework */; };
-		903132021C8A5D3D00F2091C /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90E432881C894D1900A93DC0 /* AVFoundation.framework */; };
-		903132031C8A5D3D00F2091C /* libHyphenateSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 90E4327E1C894CBA00A93DC0 /* libHyphenateSDK.a */; };
-		903132051C8A5D3D00F2091C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 90E432541C894CAF00A93DC0 /* LaunchScreen.storyboard */; };
-		903132061C8A5D3D00F2091C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 90E432521C894CAF00A93DC0 /* Assets.xcassets */; };
-		903132071C8A5D3D00F2091C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 90E4324F1C894CAF00A93DC0 /* Main.storyboard */; };
 		90E432481C894CAF00A93DC0 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 90E432471C894CAF00A93DC0 /* main.m */; };
 		90E4324B1C894CAF00A93DC0 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 90E4324A1C894CAF00A93DC0 /* AppDelegate.m */; };
 		90E4324E1C894CAF00A93DC0 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 90E4324D1C894CAF00A93DC0 /* ViewController.m */; };
@@ -50,7 +30,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		9031320B1C8A5D3D00F2091C /* SDKChange copy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SDKChange copy.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9031320C1C8A5D3D00F2091C /* SDKChange copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "SDKChange copy-Info.plist"; path = "/Users/dujiepeng/Documents/work/transform/SDKChange/SDKChange copy-Info.plist"; sourceTree = "<absolute>"; };
 		9060230C1C89EA5200073B1C /* EaseMobDefine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EaseMobDefine.h; sourceTree = "<group>"; };
 		9060230D1C89EDB100073B1C /* IChatManagerLoginDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IChatManagerLoginDelegate.h; sourceTree = "<group>"; };
@@ -131,22 +110,6 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		903131FA1C8A5D3D00F2091C /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				903131FB1C8A5D3D00F2091C /* libz.tbd in Frameworks */,
-				903131FC1C8A5D3D00F2091C /* libc++.tbd in Frameworks */,
-				903131FD1C8A5D3D00F2091C /* libsqlite3.tbd in Frameworks */,
-				903131FE1C8A5D3D00F2091C /* ImageIO.framework in Frameworks */,
-				903131FF1C8A5D3D00F2091C /* MobileCoreServices.framework in Frameworks */,
-				903132001C8A5D3D00F2091C /* SystemConfiguration.framework in Frameworks */,
-				903132011C8A5D3D00F2091C /* CoreMedia.framework in Frameworks */,
-				903132021C8A5D3D00F2091C /* AVFoundation.framework in Frameworks */,
-				903132031C8A5D3D00F2091C /* libHyphenateSDK.a in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		90E432401C894CAF00A93DC0 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -182,7 +145,6 @@
 			isa = PBXGroup;
 			children = (
 				90E432431C894CAF00A93DC0 /* SDKChange.app */,
-				9031320B1C8A5D3D00F2091C /* SDKChange copy.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -365,23 +327,6 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		903131F01C8A5D3D00F2091C /* SDKChange copy */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 903132081C8A5D3D00F2091C /* Build configuration list for PBXNativeTarget "SDKChange copy" */;
-			buildPhases = (
-				903131F11C8A5D3D00F2091C /* Sources */,
-				903131FA1C8A5D3D00F2091C /* Frameworks */,
-				903132041C8A5D3D00F2091C /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = "SDKChange copy";
-			productName = SDKChange;
-			productReference = 9031320B1C8A5D3D00F2091C /* SDKChange copy.app */;
-			productType = "com.apple.product-type.application";
-		};
 		90E432421C894CAF00A93DC0 /* SDKChange */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 90E4325A1C894CAF00A93DC0 /* Build configuration list for PBXNativeTarget "SDKChange" */;
@@ -427,22 +372,11 @@
 			projectRoot = "";
 			targets = (
 				90E432421C894CAF00A93DC0 /* SDKChange */,
-				903131F01C8A5D3D00F2091C /* SDKChange copy */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		903132041C8A5D3D00F2091C /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				903132051C8A5D3D00F2091C /* LaunchScreen.storyboard in Resources */,
-				903132061C8A5D3D00F2091C /* Assets.xcassets in Resources */,
-				903132071C8A5D3D00F2091C /* Main.storyboard in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		90E432411C894CAF00A93DC0 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -456,21 +390,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		903131F11C8A5D3D00F2091C /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				903131F21C8A5D3D00F2091C /* EaseMob.m in Sources */,
-				903131F31C8A5D3D00F2091C /* ViewController.m in Sources */,
-				903131F41C8A5D3D00F2091C /* EChatManager+Login.m in Sources */,
-				903131F51C8A5D3D00F2091C /* EMGCDMulticastDelegate.m in Sources */,
-				903131F61C8A5D3D00F2091C /* AppDelegate.m in Sources */,
-				903131F71C8A5D3D00F2091C /* EChatManager+Group.m in Sources */,
-				903131F81C8A5D3D00F2091C /* EChatManagerBase.m in Sources */,
-				903131F91C8A5D3D00F2091C /* main.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		90E4323F1C894CAF00A93DC0 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -508,38 +427,6 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		903132091C8A5D3D00F2091C /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/HyphenateSDK/include\"";
-				INFOPLIST_FILE = "SDKChange copy-Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/HyphenateSDK/lib",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.djp.SDKChange;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = Debug;
-		};
-		9031320A1C8A5D3D00F2091C /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/HyphenateSDK/include\"";
-				INFOPLIST_FILE = "SDKChange copy-Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/HyphenateSDK/lib",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.djp.SDKChange;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = Release;
-		};
 		90E432581C894CAF00A93DC0 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -655,15 +542,6 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		903132081C8A5D3D00F2091C /* Build configuration list for PBXNativeTarget "SDKChange copy" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				903132091C8A5D3D00F2091C /* Debug */,
-				9031320A1C8A5D3D00F2091C /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		90E4323E1C894CAF00A93DC0 /* Build configuration list for PBXProject "SDKChange" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
