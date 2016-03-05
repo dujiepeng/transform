@@ -11,13 +11,15 @@
 #import "IChatManagerLogin.h"
 #import "IChatManagerChatroom.h"
 #import "IChatManagerChat.h"
+#import "IChatManagerConversation.h"
 
 @protocol IChatManager
 <
     IChatManagerGroup,
     IChatManagerLogin,
     IChatManagerChatroom,
-    IChatManagerChat
+    IChatManagerChat,
+    IChatManagerConversation
 >
 
 @end

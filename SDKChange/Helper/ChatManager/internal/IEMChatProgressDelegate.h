@@ -50,6 +50,6 @@
  */
 - (void)setProgress:(float)progress
          forMessage:(EMMessage *)message
-     forMessageBody:(id<IEMMessageBody>)messageBody;
+     forMessageBody:(EMMessageBody *)messageBody;
 
 @end

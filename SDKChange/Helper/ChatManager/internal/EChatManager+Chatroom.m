@@ -97,6 +97,12 @@
 - (EMChatroom *)fetchChatroomInfo:(NSString *)chatroomId
                             error:(EMError **)pError
 {
+    if (!chatroomId) {
+        if (pError) {
+            *pError = [[EMError alloc] initWithDescription:@"群组id无效" code:EMErrorGroupInvalidId];
+        }
+        return nil;
+    }
     EMError *error = nil;
     NSArray *chatrooms = [self fetchChatroomsFromServerWithError:&error];
     if (pError) {
@@ -190,6 +196,12 @@
 - (EMChatroom *)joinChatroom:(NSString *)chatroomId
                        error:(EMError **)pError;
 {
+    if (!chatroomId) {
+        if (pError) {
+            *pError = [[EMError alloc] initWithDescription:@"群组id无效" code:EMErrorGroupInvalidId];
+        }
+        return nil;
+    }
     EMError *error = nil;
     EMChatroom *chatroom = [[EMClient sharedClient].roomManager joinChatroom:chatroomId error:&error];
     if (pError) {
@@ -235,6 +247,12 @@
 - (EMChatroom *)leaveChatroom:(NSString *)chatroomId
                         error:(EMError **)pError
 {
+    if (!chatroomId) {
+        if (pError) {
+            *pError = [[EMError alloc] initWithDescription:@"群组id无效" code:EMErrorGroupInvalidId];
+        }
+        return nil;
+    }
     EMError *error = nil;
     EMChatroom *chatroom = [[EMClient sharedClient].roomManager leaveChatroom:chatroomId error:&error];
     if (pError) {

@@ -39,10 +39,13 @@
 - (EMMessage *)asyncSendMessage:(EMMessage *)message
                        progress:(id<IEMChatProgressDelegate>)sendProgress
 {
+    if (!message) {
+        return nil;
+    }
     [_delegates willSendMessage:message error:nil];
     [[EMClient sharedClient].chatManager asyncSendMessage:message progress:^(int progress) {
         if (sendProgress) {
-            [sendProgress setProgress:progress];
+            [sendProgress setProgress:progress forMessage:message forMessageBody:message.body];
         }
     } completion:^(EMMessage *message, EMError *error) {
         [_delegates didSendMessage:message error:error];
@@ -61,6 +64,9 @@
  */
 - (void)sendReadAckForMessage:(EMMessage *)message
 {
+    if (!message) {
+        return;
+    }
     [[EMClient sharedClient].chatManager asyncSendReadAckForMessage:message];
 }
 
@@ -93,10 +99,13 @@
 - (EMMessage *)asyncResendMessage:(EMMessage *)message
                          progress:(id<IEMChatProgressDelegate>)resendProgress
 {
+    if (!message) {
+        return nil;
+    }
     [_delegates willSendMessage:message error:nil];
     [[EMClient sharedClient].chatManager asyncResendMessage:message progress:^(int progress) {
         if (resendProgress) {
-            [resendProgress setProgress:progress];
+            [resendProgress setProgress:progress forMessage:message forMessageBody:message.body];
         }
     } completion:^(EMMessage *message, EMError *error) {
         [_delegates didSendMessage:message error:error];
