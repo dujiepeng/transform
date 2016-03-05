@@ -11,6 +11,8 @@
 
 @protocol IChatManagerGroupDelegate <EMGroupManagerDelegate>
 @optional
+- (void)group:(EMGroup *)group didCreateWithError:(EMError *)error;
+
 - (void)didUpdateGroupList:(NSArray *)groupList
                      error:(EMError *)error;
 @end

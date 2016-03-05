@@ -22,6 +22,9 @@
                                                           password:password];
     if (pError) {
         *pError = error;
+    }
+    
+    if (error) {
         return NO;
     }
     
@@ -69,6 +72,7 @@
     if (pError) {
         *pError = error;
     }
+    
     return self.loginInfo;
 }
 
@@ -151,7 +155,6 @@
 - (NSDictionary *)loginInfo
 {
     NSDictionary *ret = nil;
-    
     NSString *username = [[EMClient sharedClient] currentUsername];
     if (username) {
         ret = @{kSDKUsername:username};

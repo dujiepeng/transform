@@ -10,6 +10,8 @@
 #define EaseMobDefine_h
 
 
+#define EM_DEPRECATED_IOS(_easemobIntro, _easemobDep, ...) __attribute__((deprecated("")))
+
 #define kSDKConfigEnableConsoleLogger       @"Logger"
 #define kSDKUsername                        @"kSDKUsername"
 #define kSDKPassword                        @"kSDKPassword"
