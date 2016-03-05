@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		71F5BBB51C8A69CA00D52905 /* EChatManager+Chatroom.m in Sources */ = {isa = PBXBuildFile; fileRef = 71F5BBB41C8A69CA00D52905 /* EChatManager+Chatroom.m */; };
 		71F5BBDB1C8ABA4100D52905 /* EChatManager+Chat.m in Sources */ = {isa = PBXBuildFile; fileRef = 71F5BBDA1C8ABA4100D52905 /* EChatManager+Chat.m */; };
+		71F5BC0A1C8ACA1D00D52905 /* EChatManager+Conversation.m in Sources */ = {isa = PBXBuildFile; fileRef = 71F5BC091C8ACA1D00D52905 /* EChatManager+Conversation.m */; };
 		903131F21C8A5D3D00F2091C /* EaseMob.m in Sources */ = {isa = PBXBuildFile; fileRef = 90E432B61C894F6E00A93DC0 /* EaseMob.m */; };
 		903131F31C8A5D3D00F2091C /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 90E4324D1C894CAF00A93DC0 /* ViewController.m */; };
 		903131F41C8A5D3D00F2091C /* EChatManager+Login.m in Sources */ = {isa = PBXBuildFile; fileRef = 90E432F21C89A9FE00A93DC0 /* EChatManager+Login.m */; };
@@ -60,6 +61,9 @@
 		71F5BBDA1C8ABA4100D52905 /* EChatManager+Chat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "EChatManager+Chat.m"; sourceTree = "<group>"; };
 		71F5BBDD1C8ABADA00D52905 /* IEMChatProgressDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IEMChatProgressDelegate.h; path = Helper/ChatManager/internal/IEMChatProgressDelegate.h; sourceTree = SOURCE_ROOT; };
 		71F5BBDE1C8ABF9500D52905 /* IChatManagerChatDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IChatManagerChatDelegate.h; sourceTree = "<group>"; };
+		71F5BC071C8AC9EE00D52905 /* IChatManagerConversation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IChatManagerConversation.h; sourceTree = "<group>"; };
+		71F5BC081C8ACA1D00D52905 /* EChatManager+Conversation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "EChatManager+Conversation.h"; sourceTree = "<group>"; };
+		71F5BC091C8ACA1D00D52905 /* EChatManager+Conversation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "EChatManager+Conversation.m"; sourceTree = "<group>"; };
 		9031320B1C8A5D3D00F2091C /* SDKChange copy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SDKChange copy.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9031320C1C8A5D3D00F2091C /* SDKChange copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "SDKChange copy-Info.plist"; path = "/Users/dujiepeng/Documents/work/transform/SDKChange/SDKChange copy-Info.plist"; sourceTree = "<absolute>"; };
 		9060230C1C89EA5200073B1C /* EaseMobDefine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EaseMobDefine.h; sourceTree = "<group>"; };
@@ -351,6 +355,9 @@
 				71F5BBD81C8ABA1100D52905 /* IChatManagerChat.h */,
 				71F5BBD91C8ABA4100D52905 /* EChatManager+Chat.h */,
 				71F5BBDA1C8ABA4100D52905 /* EChatManager+Chat.m */,
+				71F5BC071C8AC9EE00D52905 /* IChatManagerConversation.h */,
+				71F5BC081C8ACA1D00D52905 /* EChatManager+Conversation.h */,
+				71F5BC091C8ACA1D00D52905 /* EChatManager+Conversation.m */,
 			);
 			path = internal;
 			sourceTree = "<group>";
@@ -500,6 +507,7 @@
 				90E432C41C894F6E00A93DC0 /* EMGCDMulticastDelegate.m in Sources */,
 				90E4324B1C894CAF00A93DC0 /* AppDelegate.m in Sources */,
 				90E432E81C89A20500A93DC0 /* EChatManager+Group.m in Sources */,
+				71F5BC0A1C8ACA1D00D52905 /* EChatManager+Conversation.m in Sources */,
 				90E432C01C894F6E00A93DC0 /* EChatManagerBase.m in Sources */,
 				90E432481C894CAF00A93DC0 /* main.m in Sources */,
 				71F5BBB51C8A69CA00D52905 /* EChatManager+Chatroom.m in Sources */,
