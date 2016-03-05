@@ -15,4 +15,11 @@
 
 - (void)didUpdateGroupList:(NSArray *)groupList
                      error:(EMError *)error;
+
+- (void)group:(EMGroup *)group
+     didLeave:(EMGroupLeaveReason)reason
+        error:(EMError *)error;
+
+- (void)groupDidUpdateInfo:(EMGroup *)group
+                     error:(EMError *)error;
 @end

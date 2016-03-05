@@ -95,7 +95,7 @@
 
 
 
-// fetch group from server
+// fetch group list
 - (NSArray *)fetchMyGroupsListWithError:(EMError **)pError{
     EMError *error = nil;
     NSArray *ret = [[EMClient sharedClient].groupManager getMyGroupsFromServerWithError:&error];
@@ -176,18 +176,439 @@
     });
 }
 
+// leave group
+- (EMGroup *)leaveGroup:(NSString *)groupId
+                  error:(EMError **)pError{
+    EMError *error = nil;
+    EMGroup *group = [[EMClient sharedClient].groupManager leaveGroup:groupId error:&error];
+    if (pError) {
+        *pError = error;
+    }
+    
+    if (error) {
+        return nil;
+    }
+    
+    return group;
+}
+
+- (void)asyncLeaveGroup:(NSString *)groupId{
+    __weak EChatManager *weakSelf = self;
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(){
+        EMError *error = nil;
+        EMGroup *group = [weakSelf leaveGroup:groupId error:&error];
+        [_delegates group:group didLeave:EMGroupLeaveReasonUserLeave error:error];
+    });
+}
+
+- (void)asyncLeaveGroup:(NSString *)groupId
+             completion:(void (^)(EMGroup *group,
+                                  EMGroupLeaveReason reason,
+                                  EMError *error))completion
+                onQueue:(dispatch_queue_t)aQueue{
+    __weak EChatManager *weakSelf = self;
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(){
+        EMError *error = nil;
+        EMGroup *group = [weakSelf leaveGroup:groupId error:&error];
+        if (completion) {
+            dispatch_queue_t queue = aQueue;
+            if (!queue) {
+                queue = dispatch_get_main_queue();
+            }
+            dispatch_async(queue, ^(){
+                completion(group, EMGroupLeaveReasonUserLeave, error);
+            });
+        }
+    });
+}
+
+//destroy group
+- (EMGroup *)destroyGroup:(NSString *)groupId
+                    error:(EMError **)pError{
+    EMError *error = nil;
+    EMGroup *group = [[EMClient sharedClient].groupManager destroyGroup:groupId error:&error];
+    if (pError) {
+        *pError = error;
+    }
+    
+    if (error) {
+        return nil;
+    }
+    
+    return group;
+}
+
+- (void)asyncDestroyGroup:(NSString *)groupId{
+    __weak EChatManager *weakSelf = self;
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(){
+        EMError *error = nil;
+        EMGroup *group = [weakSelf destroyGroup:groupId error:&error];
+        [_delegates group:group didLeave:EMGroupLeaveReasonDestroyed error:error];
+    });
+}
+
+- (void)asyncDestroyGroup:(NSString *)groupId
+               completion:(void (^)(EMGroup *group,
+                                    EMGroupLeaveReason reason,
+                                    EMError *error))completion
+                  onQueue:(dispatch_queue_t)aQueue{
+    __weak EChatManager *weakSelf = self;
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(){
+        EMError *error = nil;
+        EMGroup *group = [weakSelf destroyGroup:groupId error:&error];
+        if (completion) {
+            dispatch_queue_t queue = aQueue;
+            if (!queue) {
+                queue = dispatch_get_main_queue();
+            }
+            dispatch_async(queue, ^(){
+                completion(group, EMGroupLeaveReasonDestroyed, error);
+            });
+        }
+    });
+}
+
+- (EMGroup *)addOccupants:(NSArray *)occupants
+                  toGroup:(NSString *)groupId
+           welcomeMessage:(NSString *)welcomeMessage
+                    error:(EMError **)pError{
+    EMError *error = nil;
+    EMGroup *group = [[EMClient sharedClient].groupManager addOccupants:occupants
+                                                                toGroup:groupId
+                                                         welcomeMessage:welcomeMessage
+                                                                  error:&error];
+    
+    if (pError) {
+        *pError = error;
+    }
+    
+    if (error) {
+        return nil;
+    }
+    
+    return group;
+}
+
+- (void)asyncAddOccupants:(NSArray *)occupants
+                  toGroup:(NSString *)groupId
+           welcomeMessage:(NSString *)welcomeMessage{
+    __weak EChatManager *weakSelf = self;
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(){
+        EMError *error = nil;
+        EMGroup *group = [weakSelf addOccupants:occupants
+                                        toGroup:groupId
+                                 welcomeMessage:welcomeMessage
+                                          error:&error];
+        [_delegates groupDidUpdateInfo:group error:error];
+    });
+}
+
+- (void)asyncAddOccupants:(NSArray *)occupants
+                  toGroup:(NSString *)groupId
+           welcomeMessage:(NSString *)welcomeMessage
+               completion:(void (^)(NSArray *occupants,
+                                    EMGroup *group,
+                                    NSString *welcomeMessage,
+                                    EMError *error))completion
+                  onQueue:(dispatch_queue_t)aQueue{
+    
+    __weak EChatManager *weakSelf = self;
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(){
+        EMError *error = nil;
+        EMGroup *group = [weakSelf addOccupants:occupants
+                                        toGroup:groupId
+                                 welcomeMessage:welcomeMessage
+                                          error:&error];
+        if (completion) {
+            dispatch_queue_t queue = aQueue;
+            if (!queue) {
+                queue = dispatch_get_main_queue();
+            }
+            dispatch_async(queue, ^(){
+                completion(occupants, group, welcomeMessage, error);
+            });
+        }
+    });
+}
+
+//remove occupants
+- (EMGroup *)removeOccupants:(NSArray *)occupants
+                   fromGroup:(NSString *)groupId
+                       error:(EMError *__autoreleasing *)pError{
+    EMError *error = nil;
+    EMGroup *group = [[EMClient sharedClient].groupManager removeOccupants:occupants
+                                                                 fromGroup:groupId
+                                                                     error:&error];
+    if (pError) {
+        *pError = error;
+    }
+    
+    if (error) {
+        return nil;
+    }
+    
+    return group;
+}
+
+- (void)asyncRemoveOccupants:(NSArray *)occupants
+                   fromGroup:(NSString *)groupId{
+    __weak EChatManager *weakSelf = self;
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(){
+        EMError *error = nil;
+        EMGroup *group = [weakSelf removeOccupants:occupants
+                                         fromGroup:groupId
+                                             error:&error];
+        [_delegates groupDidUpdateInfo:group error:error];
+    });
+}
+
+- (void)asyncRemoveOccupants:(NSArray *)occupants
+                   fromGroup:(NSString *)groupId
+                  completion:(void (^)(EMGroup *group,
+                                       EMError *error))completion
+                     onQueue:(dispatch_queue_t)aQueue{
+    __weak EChatManager *weakSelf = self;
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(){
+        EMError *error = nil;
+        EMGroup *group = [weakSelf removeOccupants:occupants
+                                         fromGroup:groupId
+                                             error:&error];
+        if (completion) {
+            dispatch_queue_t queue = aQueue;
+            if (!queue) {
+                queue = dispatch_get_main_queue();
+            }
+            dispatch_async(queue, ^(){
+                completion(group, error);
+            });
+        }
+    });
+}
+
+//block occupants
+- (EMGroup *)blockOccupants:(NSArray *)occupants
+                  fromGroup:(NSString *)groupId
+                      error:(EMError **)pError{
+    EMError *error = nil;
+    EMGroup *group = [[EMClient sharedClient].groupManager blockOccupants:occupants
+                                                                fromGroup:groupId
+                                                                    error:&error];
+    if (pError) {
+        *pError = error;
+    }
+    
+    if (error) {
+        return nil;
+    }
+    
+    return group;
+}
+
+- (void)asyncBlockOccupants:(NSArray *)occupants
+                  fromGroup:(NSString *)groupId{
+    __weak EChatManager *weakSelf = self;
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(){
+        EMError *error = nil;
+        EMGroup *group = [weakSelf blockOccupants:occupants
+                                        fromGroup:groupId
+                                            error:&error];
+        
+        [_delegates groupDidUpdateInfo:group error:error];
+    });
+}
+
+- (void)asyncBlockOccupants:(NSArray *)occupants
+                  fromGroup:(NSString *)groupId
+                 completion:(void (^)(EMGroup *group,
+                                      EMError *error))completion
+                    onQueue:(dispatch_queue_t)aQueue{
+    __weak EChatManager *weakSelf = self;
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(){
+        EMError *error = nil;
+        EMGroup *group = [weakSelf blockOccupants:occupants
+                                        fromGroup:groupId
+                                            error:&error];
+        if (completion) {
+            dispatch_queue_t queue = aQueue;
+            if (!queue) {
+                queue = dispatch_get_main_queue();
+            }
+            dispatch_async(queue, ^(){
+                completion(group, error);
+            });
+        }
+    });
+}
+
+- (EMGroup *)unblockOccupants:(NSArray *)occupants
+                     forGroup:(NSString *)groupId
+                        error:(EMError **)pError{
+    EMError *error = nil;
+    EMGroup *group = [[EMClient sharedClient].groupManager unblockOccupants:occupants
+                                                                   forGroup:groupId
+                                                                      error:&error];
+    if (pError) {
+        *pError = error;
+    }
+    
+    if (error) {
+        return nil;
+    }
+    
+    return group;
+}
+
+- (void)asyncUnblockOccupants:(NSArray *)occupants
+                     forGroup:(NSString *)groupId{
+    __weak EChatManager *weakSelf = self;
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(){
+        EMError *error = nil;
+        EMGroup *group = [weakSelf unblockOccupants:occupants
+                                           forGroup:groupId
+                                              error:&error];
+        [_delegates groupDidUpdateInfo:group error:error];
+    });
+}
+
+- (void)asyncUnblockOccupants:(NSArray *)occupants
+                     forGroup:(NSString *)groupId
+                   completion:(void (^)(EMGroup *group,
+                                        EMError *error))completion
+                      onQueue:(dispatch_queue_t)aQueue{
+    __weak EChatManager *weakSelf = self;
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(){
+        EMError *error = nil;
+        EMGroup *group = [weakSelf unblockOccupants:occupants
+                                           forGroup:groupId
+                                              error:&error];
+        if (completion) {
+            dispatch_queue_t queue = aQueue;
+            if (!queue) {
+                queue = dispatch_get_main_queue();
+            }
+            dispatch_async(queue, ^(){
+                completion(group, error);
+            });
+            
+        }
+    });
+}
+
+//change group subject
+- (EMGroup *)changeGroupSubject:(NSString *)subject
+                       forGroup:(NSString *)groupId
+                          error:(EMError **)pError{
+    EMError *error = nil;
+    EMGroup *group = [[EMClient sharedClient].groupManager changeGroupSubject:subject
+                                                                     forGroup:groupId
+                                                                        error:&error];
+    
+    if (pError) {
+        *pError = error;
+    }
+    
+    if (error) {
+        return nil;
+    }
+    
+    return group;
+}
+
+- (void)asyncChangeGroupSubject:(NSString *)subject
+                       forGroup:(NSString *)groupId{
+    __weak EChatManager *weakSelf = self;
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(){
+        EMError *error = nil;
+        EMGroup *group = [weakSelf changeGroupSubject:subject forGroup:groupId error:&error];
+        [_delegates groupDidUpdateInfo:group error:error];
+    });
+}
+
+- (void)asyncChangeGroupSubject:(NSString *)subject
+                       forGroup:(NSString *)groupId
+                     completion:(void (^)(EMGroup *group,
+                                          EMError *error))completion
+                        onQueue:(dispatch_queue_t)aQueue{
+    __weak EChatManager *weakSelf = self;
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(){
+        EMError *error = nil;
+        EMGroup *group = [weakSelf changeGroupSubject:subject forGroup:groupId error:&error];
+        if (completion) {
+            dispatch_queue_t queue = aQueue;
+            if (!queue) {
+                queue = dispatch_get_main_queue();
+            }
+            dispatch_async(queue, ^(){
+                completion(group, error);
+            });
+        };
+    });
+}
+
+//change group description
+
+- (EMGroup *)changeDescription:(NSString *)newDescription
+                      forGroup:(NSString *)groupId
+                         error:(EMError **)pError{
+    EMError *error = nil;
+    EMGroup *group = [[EMClient sharedClient].groupManager changeDescription:newDescription
+                                                                    forGroup:groupId
+                                                                       error:&error];
+    if (pError) {
+        *pError = error;
+    }
+    
+    if (error) {
+        return nil;
+    }
+    
+    return group;
+}
+
+- (void)asyncChangeDescription:(NSString *)newDescription
+                      forGroup:(NSString *)groupId{
+    
+    __weak EChatManager *weakSelf = self;
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(){
+        EMError *error = nil;
+        EMGroup *group = [weakSelf changeDescription:newDescription forGroup:groupId error:&error];
+        [_delegates groupDidUpdateInfo:group error:error];
+    });
+}
+
+- (void)asyncChangeDescription:(NSString *)newDescription
+                      forGroup:(NSString *)groupId
+                    completion:(void (^)(EMGroup *group,
+                                         EMError *error))completion
+                       onQueue:(dispatch_queue_t)aQueue{
+    __weak EChatManager *weakSelf = self;
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(){
+        EMError *error = nil;
+        EMGroup *group = [weakSelf changeDescription:newDescription forGroup:groupId error:&error];
+        if (completion) {
+            dispatch_queue_t queue = aQueue;
+            if (!queue) {
+                queue = dispatch_get_main_queue();
+            }
+            dispatch_async(queue, ^(){
+                completion(group, error);
+            });
+        }
+    });
+}
+
 
 // deprecated
 - (NSArray *)fetchAllPublicGroupsWithError:(EMError **)pError EM_DEPRECATED_IOS(2_0_0, 2_2_2, "Delete"){
     return nil;
 }
 - (void)asyncFetchAllPublicGroups EM_DEPRECATED_IOS(2_0_0, 2_2_2, "Delete"){
-
+    
 }
 - (void)asyncFetchAllPublicGroupsWithCompletion:(void (^)(NSArray *groups,
                                                           EMError *error))completion
                                         onQueue:(dispatch_queue_t)aQueue EM_DEPRECATED_IOS(2_0_0, 2_2_2, "Delete"){
-
+    
 }
 
 
