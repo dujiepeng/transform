@@ -11,5 +11,6 @@
 
 #import "EChatManager+Group.h"
 #import "EChatManager+Login.h"
+#import "EChatManager+Chatroom.h"
 
 #endif /* EMChatManager_h */

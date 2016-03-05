@@ -67,7 +67,7 @@
  */
 - (EMCursorResult *)fetchChatroomsFromServerWithCursor:(NSString *)cursor
                                               pageSize:(NSInteger)pageSize
-                                              andError:(EMError **)pError
+                                              andError:(EMError **)pError EM_DEPRECATED_IOS(2_1_7, 2_2_2, "Delete")
 {
     return nil;
 }
@@ -81,7 +81,7 @@
  */
 - (void)asyncFetchChatroomsFromServerWithCursor:(NSString *)cursor
                                        pageSize:(NSInteger)pageSize
-                                  andCompletion:(void (^)(EMCursorResult *result, EMError *error))completion
+                                  andCompletion:(void (^)(EMCursorResult *result, EMError *error))completion EM_DEPRECATED_IOS(2_1_7, 2_2_2, "Delete")
 {
 }
 
@@ -156,7 +156,7 @@
 - (EMCursorResult *)fetchOccupantsForChatroom:(NSString *)chatroomId
                                        cursor:(NSString *)cursor
                                      pageSize:(NSInteger)pageSize
-                                     andError:(EMError **)pError
+                                     andError:(EMError **)pError EM_DEPRECATED_IOS(2_1_7, 2_2_2, "Delete")
 {
     return nil;
 }
@@ -172,7 +172,7 @@
 - (void)asyncFetchOccupantsForChatroom:(NSString *)chatroomId
                                 cursor:(NSString *)cursor
                               pageSize:(NSInteger)pageSize
-                            completion:(void (^)(EMCursorResult *result, EMError *error))completion
+                            completion:(void (^)(EMCursorResult *result, EMError *error))completion EM_DEPRECATED_IOS(2_1_7, 2_2_2, "Delete")
 {
 }
 

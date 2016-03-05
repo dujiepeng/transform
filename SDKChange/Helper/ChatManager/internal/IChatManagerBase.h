@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
+
 @protocol IChatManagerDelegate;
 @protocol IChatManagerBase <NSObject>
 @required
