@@ -36,4 +36,20 @@
 - (void)didSendMessage:(EMMessage *)message
                  error:(EMError *)error;
 
+/*!
+ *  \~chinese
+ *  消息附件状态发生改变
+ *
+ *  @param aMessage  附件状态发生变化的消息
+ *  @param aError    错误信息
+ *
+ *  \~english
+ *  Attachment status has changed
+ *
+ *  @param aMessage  Message whose attachment status changed
+ *  @param aError    Error
+ */
+- (void)didMessageThumbnaiStatusChanged:(EMMessage *)aMessage
+                                     error:(EMError *)aError;
+
 @end
