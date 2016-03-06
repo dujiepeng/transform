@@ -14,6 +14,7 @@
 #import "IChatManagerConversation.h"
 #import "IChatManagerUtil.h"
 #import "IChatManagerBuddy.h"
+#import "IChatManagerPushNotification.h"
 
 @protocol IChatManager
 <
@@ -23,7 +24,8 @@
     IChatManagerChat,
     IChatManagerConversation,
     IChatManagerUtil,
-    IChatManagerBuddy
+    IChatManagerBuddy,
+    IChatManagerPushNotification
 >
 
 @end

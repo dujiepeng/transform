@@ -13,6 +13,7 @@
 #import "IChatManagerLoginDelegate.h"
 #import "IChatManagerChatDelegate.h"
 #import "IChatManagerBuddyDelegate.h"
+#import "IChatManagerPushNotificationDelegate.h"
 @protocol IChatManagerDelegate
 <
     EMChatroomManagerDelegate,
@@ -20,7 +21,8 @@
     IChatManagerGroupDelegate,
     IChatManagerLoginDelegate,
     IChatManagerChatDelegate,
-    IChatManagerBuddyDelegate
+    IChatManagerBuddyDelegate,
+    IChatManagerPushNotificationDelegate
 >
 
 @end
