@@ -12,6 +12,8 @@
 #import "IChatManagerChatroom.h"
 #import "IChatManagerChat.h"
 #import "IChatManagerConversation.h"
+#import "IChatManagerUtil.h"
+#import "IChatManagerBuddy.h"
 
 @protocol IChatManager
 <
@@ -19,7 +21,9 @@
     IChatManagerLogin,
     IChatManagerChatroom,
     IChatManagerChat,
-    IChatManagerConversation
+    IChatManagerConversation,
+    IChatManagerUtil,
+    IChatManagerBuddy
 >
 
 @end

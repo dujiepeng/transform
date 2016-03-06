@@ -11,6 +11,7 @@
 		7198CEF71C8BB6DE00AC4248 /* EChatManager+Chatroom.m in Sources */ = {isa = PBXBuildFile; fileRef = 7198CEF01C8BB6DE00AC4248 /* EChatManager+Chatroom.m */; };
 		7198CEF81C8BB6DE00AC4248 /* EChatManager+Conversation.m in Sources */ = {isa = PBXBuildFile; fileRef = 7198CEF21C8BB6DE00AC4248 /* EChatManager+Conversation.m */; };
 		7198CEFF1C8BE2F400AC4248 /* EChatManager+Util.m in Sources */ = {isa = PBXBuildFile; fileRef = 7198CEFE1C8BE2F400AC4248 /* EChatManager+Util.m */; };
+		7198CF071C8BF98600AC4248 /* EChatManager+Buddy.m in Sources */ = {isa = PBXBuildFile; fileRef = 7198CF061C8BF98600AC4248 /* EChatManager+Buddy.m */; };
 		90E432481C894CAF00A93DC0 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 90E432471C894CAF00A93DC0 /* main.m */; };
 		90E4324B1C894CAF00A93DC0 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 90E4324A1C894CAF00A93DC0 /* AppDelegate.m */; };
 		90E4324E1C894CAF00A93DC0 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 90E4324D1C894CAF00A93DC0 /* ViewController.m */; };
@@ -48,6 +49,10 @@
 		7198CEFC1C8BE23200AC4248 /* IChatManagerUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IChatManagerUtil.h; sourceTree = "<group>"; };
 		7198CEFD1C8BE2F400AC4248 /* EChatManager+Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "EChatManager+Util.h"; sourceTree = "<group>"; };
 		7198CEFE1C8BE2F400AC4248 /* EChatManager+Util.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "EChatManager+Util.m"; sourceTree = "<group>"; };
+		7198CF041C8BF97900AC4248 /* IChatManagerBuddy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IChatManagerBuddy.h; sourceTree = "<group>"; };
+		7198CF051C8BF98600AC4248 /* EChatManager+Buddy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "EChatManager+Buddy.h"; sourceTree = "<group>"; };
+		7198CF061C8BF98600AC4248 /* EChatManager+Buddy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "EChatManager+Buddy.m"; sourceTree = "<group>"; };
+		7198CF081C8BFD8D00AC4248 /* IChatManagerBuddyDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IChatManagerBuddyDelegate.h; sourceTree = "<group>"; };
 		9031320C1C8A5D3D00F2091C /* SDKChange copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "SDKChange copy-Info.plist"; path = "/Users/dujiepeng/Documents/work/transform/SDKChange/SDKChange copy-Info.plist"; sourceTree = "<absolute>"; };
 		9060230C1C89EA5200073B1C /* EaseMobDefine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EaseMobDefine.h; sourceTree = "<group>"; };
 		9060230D1C89EDB100073B1C /* IChatManagerLoginDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IChatManagerLoginDelegate.h; sourceTree = "<group>"; };
@@ -298,6 +303,7 @@
 				90E432F61C89AD3C00A93DC0 /* IChatManagerGroupDelegate.h */,
 				9060230D1C89EDB100073B1C /* IChatManagerLoginDelegate.h */,
 				7198CEFA1C8BB77600AC4248 /* IChatManagerChatDelegate.h */,
+				7198CF081C8BFD8D00AC4248 /* IChatManagerBuddyDelegate.h */,
 			);
 			path = delegate;
 			sourceTree = "<group>";
@@ -327,6 +333,9 @@
 				7198CEFC1C8BE23200AC4248 /* IChatManagerUtil.h */,
 				7198CEFD1C8BE2F400AC4248 /* EChatManager+Util.h */,
 				7198CEFE1C8BE2F400AC4248 /* EChatManager+Util.m */,
+				7198CF041C8BF97900AC4248 /* IChatManagerBuddy.h */,
+				7198CF051C8BF98600AC4248 /* EChatManager+Buddy.h */,
+				7198CF061C8BF98600AC4248 /* EChatManager+Buddy.m */,
 			);
 			path = internal;
 			sourceTree = "<group>";
@@ -434,6 +443,7 @@
 				90E4324B1C894CAF00A93DC0 /* AppDelegate.m in Sources */,
 				90E432E81C89A20500A93DC0 /* EChatManager+Group.m in Sources */,
 				7198CEF81C8BB6DE00AC4248 /* EChatManager+Conversation.m in Sources */,
+				7198CF071C8BF98600AC4248 /* EChatManager+Buddy.m in Sources */,
 				7198CEF61C8BB6DE00AC4248 /* EChatManager+Chat.m in Sources */,
 				90E432C01C894F6E00A93DC0 /* EChatManagerBase.m in Sources */,
 				90E432481C894CAF00A93DC0 /* main.m in Sources */,

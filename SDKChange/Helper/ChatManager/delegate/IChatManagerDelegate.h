@@ -12,14 +12,15 @@
 #import "IChatManagerGroupDelegate.h"
 #import "IChatManagerLoginDelegate.h"
 #import "IChatManagerChatDelegate.h"
+#import "IChatManagerBuddyDelegate.h"
 @protocol IChatManagerDelegate
 <
-    IChatManagerChatDelegate,
     EMChatroomManagerDelegate,
-    EMContactManagerDelegate,
 
     IChatManagerGroupDelegate,
-    IChatManagerLoginDelegate
+    IChatManagerLoginDelegate,
+    IChatManagerChatDelegate,
+    IChatManagerBuddyDelegate
 >
 
 @end
