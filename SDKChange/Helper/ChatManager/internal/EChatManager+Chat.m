@@ -62,7 +62,7 @@
 - (EMMessage *)asyncResendMessage:(EMMessage *)message
                          progress:(id<IEMChatProgressDelegate>)resendProgress
 {
-    EMMessage *_message = [message mutableCopy];
+    EMMessage *_message = message;
     _message.status = EMMessageStatusPending;
     [_delegates willSendMessage:message error:nil];
     __weak EMMessage *weakMesage = _message;
