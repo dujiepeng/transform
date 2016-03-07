@@ -25,14 +25,14 @@
 - (EMMessage *)asyncSendMessage:(EMMessage *)message
                        progress:(id<IEMChatProgressDelegate>)sendProgress
 {
-    EMMessage *_message = [message mutableCopy];
+    EMMessage *_message = message;
     _message.status = EMMessageStatusPending;
     [_delegates willSendMessage:_message error:nil];
     __weak EMMessage *weakMesage = _message;
     [[EMClient sharedClient].chatManager asyncSendMessage:message progress:^(int progress) {
         if (sendProgress) {
             weakMesage.status = EMMessageStatusDelivering;
-            [sendProgress setProgress:progress forMessage:weakMesage forMessageBody:weakMesage.body];
+            [sendProgress setProgress:Progress(progress) forMessage:weakMesage forMessageBody:weakMesage.body];
         }
     } completion:^(EMMessage *message, EMError *error) {
         [_delegates didSendMessage:message error:error];
@@ -69,7 +69,7 @@
     [[EMClient sharedClient].chatManager asyncResendMessage:message progress:^(int progress) {
         if (resendProgress) {
             weakMesage.status = EMMessageStatusDelivering;
-            [resendProgress setProgress:progress forMessage:weakMesage forMessageBody:weakMesage.body];
+            [resendProgress setProgress:Progress(progress) forMessage:weakMesage forMessageBody:weakMesage.body];
         }
     } completion:^(EMMessage *message, EMError *error) {
         [_delegates didSendMessage:message error:error];

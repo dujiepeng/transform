@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
+#define Progress(progress) progress / 100.0
+
 /*!
  @protocol
  @brief 聊天消息发送接收进度条
