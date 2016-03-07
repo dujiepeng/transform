@@ -28,7 +28,7 @@
 {
     [[EMClient sharedClient].chatManager asyncDownloadMessageAttachments:aMessage progress:^(int aProgress) {
         if (progress) {
-            [progress setProgress:aProgress forMessage:aMessage forMessageBody:aMessage.body];
+            [progress setProgress:Progress(aProgress) forMessage:aMessage forMessageBody:aMessage.body];
         }
     } completion:^(EMMessage *message, EMError *error) {
         [_delegates didMessageAttachmentsStatusChanged:message error:error];
@@ -44,7 +44,7 @@
 {
     [[EMClient sharedClient].chatManager asyncDownloadMessageAttachments:aMessage progress:^(int aProgress) {
         if (progress) {
-            [progress setProgress:aProgress forMessage:aMessage forMessageBody:aMessage.body];
+            [progress setProgress:Progress(aProgress) forMessage:aMessage forMessageBody:aMessage.body];
         }
     } completion:^(EMMessage *message, EMError *error) {
         if (completion) {
@@ -74,7 +74,7 @@
 {
     [[EMClient sharedClient].chatManager asyncDownloadMessageThumbnail:aMessage progress:^(int aProgress) {
         if (progress) {
-            [progress setProgress:aProgress forMessage:aMessage forMessageBody:aMessage.body];
+            [progress setProgress:Progress(aProgress) forMessage:aMessage forMessageBody:aMessage.body];
         }
     } completion:^(EMMessage *message, EMError *error) {
         [_delegates didMessageThumbnaiStatusChanged:message error:error];
@@ -90,7 +90,7 @@
 {
     [[EMClient sharedClient].chatManager asyncDownloadMessageThumbnail:aMessage progress:^(int aProgress) {
         if (progress) {
-            [progress setProgress:aProgress forMessage:aMessage forMessageBody:aMessage.body];
+            [progress setProgress:Progress(aProgress) forMessage:aMessage forMessageBody:aMessage.body];
         }
     } completion:^(EMMessage *message, EMError *error) {
         if (completion) {
