@@ -9,11 +9,23 @@
 #import <Foundation/Foundation.h>
 #import "IChatManagerGroup.h"
 #import "IChatManagerLogin.h"
+#import "IChatManagerChatroom.h"
+#import "IChatManagerChat.h"
+#import "IChatManagerConversation.h"
+#import "IChatManagerUtil.h"
+#import "IChatManagerBuddy.h"
+#import "IChatManagerPushNotification.h"
 
 @protocol IChatManager
 <
     IChatManagerGroup,
-    IChatManagerLogin
+    IChatManagerLogin,
+    IChatManagerChatroom,
+    IChatManagerChat,
+    IChatManagerConversation,
+    IChatManagerUtil,
+    IChatManagerBuddy,
+    IChatManagerPushNotification
 >
 
 @end

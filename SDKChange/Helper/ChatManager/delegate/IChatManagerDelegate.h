@@ -11,14 +11,18 @@
 #import "EMSDK.h"
 #import "IChatManagerGroupDelegate.h"
 #import "IChatManagerLoginDelegate.h"
+#import "IChatManagerChatDelegate.h"
+#import "IChatManagerBuddyDelegate.h"
+#import "IChatManagerPushNotificationDelegate.h"
 @protocol IChatManagerDelegate
 <
-    EMChatManagerDelegate,
     EMChatroomManagerDelegate,
-    EMContactManagerDelegate,
 
     IChatManagerGroupDelegate,
-    IChatManagerLoginDelegate
+    IChatManagerLoginDelegate,
+    IChatManagerChatDelegate,
+    IChatManagerBuddyDelegate,
+    IChatManagerPushNotificationDelegate
 >
 
 @end
