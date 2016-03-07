@@ -25,14 +25,10 @@
 - (EMMessage *)asyncSendMessage:(EMMessage *)message
                        progress:(id<IEMChatProgressDelegate>)sendProgress
 {
-    EMMessage *_message = message;
-    _message.status = EMMessageStatusPending;
-    [_delegates willSendMessage:_message error:nil];
-    __weak EMMessage *weakMesage = _message;
+    [_delegates willSendMessage:message error:nil];
     [[EMClient sharedClient].chatManager asyncSendMessage:message progress:^(int progress) {
         if (sendProgress) {
-            weakMesage.status = EMMessageStatusDelivering;
-            [sendProgress setProgress:Progress(progress) forMessage:weakMesage forMessageBody:weakMesage.body];
+            [sendProgress setProgress:Progress(progress) forMessage:message forMessageBody:message.body];
         }
     } completion:^(EMMessage *message, EMError *error) {
         [_delegates didSendMessage:message error:error];
@@ -62,14 +58,10 @@
 - (EMMessage *)asyncResendMessage:(EMMessage *)message
                          progress:(id<IEMChatProgressDelegate>)resendProgress
 {
-    EMMessage *_message = message;
-    _message.status = EMMessageStatusPending;
     [_delegates willSendMessage:message error:nil];
-    __weak EMMessage *weakMesage = _message;
     [[EMClient sharedClient].chatManager asyncResendMessage:message progress:^(int progress) {
         if (resendProgress) {
-            weakMesage.status = EMMessageStatusDelivering;
-            [resendProgress setProgress:Progress(progress) forMessage:weakMesage forMessageBody:weakMesage.body];
+            [resendProgress setProgress:Progress(progress) forMessage:message forMessageBody:message.body];
         }
     } completion:^(EMMessage *message, EMError *error) {
         [_delegates didSendMessage:message error:error];
