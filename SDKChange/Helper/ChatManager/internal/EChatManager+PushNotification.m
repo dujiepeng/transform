@@ -42,9 +42,7 @@
     if (pError) {
         *pError = error;
     }
-    if (error) {
-        return nil;
-    }
+
     return _options;
 }
 
@@ -108,9 +106,7 @@
     if (pError) {
         *pError = error;
     }
-    if (error) {
-        return nil;
-    }
+
     return [[EMClient sharedClient].groupManager getAllIgnoredGroupIds];
 }
 

@@ -37,9 +37,7 @@
         *pError = error;
     }
     
-    if (error) {
-        return nil;
-    }
+
     
     return group;
 }
@@ -103,9 +101,7 @@
         *pError = error;
     }
     
-    if (error) {
-        return nil;
-    }
+
     
     return ret;
 }
@@ -150,9 +146,7 @@
         *pError = error;
     }
     
-    if (error) {
-        return nil;
-    }
+
     
     return result;
 }
@@ -185,9 +179,7 @@
         *pError = error;
     }
     
-    if (error) {
-        return nil;
-    }
+
     
     return group;
 }
@@ -231,9 +223,7 @@
         *pError = error;
     }
     
-    if (error) {
-        return nil;
-    }
+
     
     return group;
 }
@@ -282,9 +272,7 @@
         *pError = error;
     }
     
-    if (error) {
-        return nil;
-    }
+
     
     return group;
 }
@@ -343,9 +331,7 @@
         *pError = error;
     }
     
-    if (error) {
-        return nil;
-    }
+
     
     return group;
 }
@@ -397,9 +383,7 @@
         *pError = error;
     }
     
-    if (error) {
-        return nil;
-    }
+
     
     return group;
 }
@@ -451,9 +435,7 @@
         *pError = error;
     }
     
-    if (error) {
-        return nil;
-    }
+
     
     return group;
 }
@@ -507,9 +489,7 @@
         *pError = error;
     }
     
-    if (error) {
-        return nil;
-    }
+
     
     return group;
 }
@@ -558,16 +538,13 @@
         *pError = error;
     }
     
-    if (error) {
-        return nil;
-    }
+
     
     return group;
 }
 
 - (void)asyncChangeDescription:(NSString *)newDescription
                       forGroup:(NSString *)groupId{
-    
     __weak EChatManager *weakSelf = self;
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(){
         EMError *error = nil;
@@ -597,7 +574,459 @@
     });
 }
 
+//accept join group apply
 
+- (void)acceptApplyJoinGroup:(NSString *)groupId
+                   groupname:(NSString *)groupname
+                   applicant:(NSString *)username
+                       error:(EMError **)pError{
+    EMError *error = [[EMClient sharedClient].groupManager acceptJoinApplication:groupId
+                                                                       applicant:username];
+    if (pError) {
+        *pError = error;
+    }
+}
+
+- (void)asyncAcceptApplyJoinGroup:(NSString *)groupId
+                        groupname:(NSString *)groupname
+                        applicant:(NSString *)username{
+    __weak EChatManager *weakSelf = self;
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(){
+        EMError *error = nil;
+        [weakSelf acceptApplyJoinGroup:groupId
+                             groupname:groupname
+                             applicant:username
+                                 error:&error];
+        [_delegates didAcceptApplyJoinGroup:groupId username:username error:error];
+    });
+}
+
+- (void)asyncAcceptApplyJoinGroup:(NSString *)groupId
+                        groupname:(NSString *)groupname
+                        applicant:(NSString *)username
+                       completion:(void (^)(EMError *error))completion
+                          onQueue:(dispatch_queue_t)aQueue{
+    __weak EChatManager *weakSelf = self;
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(){
+        EMError *error = nil;
+        [weakSelf acceptApplyJoinGroup:groupId
+                             groupname:groupname
+                             applicant:username
+                                 error:&error];
+        if (completion) {
+            dispatch_queue_t queue = aQueue;
+            if (!queue) {
+                queue = dispatch_get_main_queue();
+            }
+            dispatch_async(queue, ^(){
+                completion(error);
+            });
+        }
+    });
+}
+
+//reject join group apply
+- (void)rejectApplyJoinGroup:(NSString *)groupId
+                   groupname:(NSString *)groupname
+                 toApplicant:(NSString *)username
+                      reason:(NSString *)reason{
+    [[EMClient sharedClient].groupManager declineJoinApplication:groupId
+                                                       applicant:username
+                                                          reason:reason];
+}
+
+#pragma mark - fetch group info
+
+/*!
+ @method
+ @brief 获取群组详细信息（id，密码，主题，描述，实际总人数，在线人数，成员列表，属性）
+ @param groupId 群组ID
+ @param pError  错误信息
+ @result 所获取的群组对象
+ */
+- (EMGroup *)fetchGroupInfo:(NSString *)groupId
+                      error:(EMError **)pError{
+    EMError *error = nil;
+    EMGroup *group = [[EMClient sharedClient].groupManager fetchGroupInfo:groupId
+                                                       includeMembersList:NO
+                                                                    error:&error];
+    
+    if (pError) {
+        *pError = error;
+    }
+    
+
+    
+    return group;
+}
+
+/*!
+ @method
+ @brief 异步方法, 获取群组详细信息（id，密码，主题，描述，实际总人数，在线人数，成员列表，属性）
+ @param groupId 群组ID
+ @discussion
+ 执行后, 回调didFetchGroupInfo:error会被触发
+ */
+- (void)asyncFetchGroupInfo:(NSString *)groupId{
+    __weak EChatManager *weakSelf = self;
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(){
+        EMError *error = nil;
+        EMGroup *group = [weakSelf fetchGroupInfo:groupId error:&error];
+        [_delegates didFetchGroupInfo:group error:error];
+    });
+}
+
+/*!
+ @method
+ @brief 异步方法, 获取群组详细信息（id，密码，主题，描述，实际总人数，在线人数，成员列表，属性）
+ @param groupId    群组ID
+ @param completion 消息完成后的回调
+ @param aQueue     回调block时的线程
+ */
+- (void)asyncFetchGroupInfo:(NSString *)groupId
+                 completion:(void (^)(EMGroup *group,
+                                      EMError *error))completion
+                    onQueue:(dispatch_queue_t)aQueue{
+    __weak EChatManager *weakSelf = self;
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(){
+        EMError *error = nil;
+        EMGroup *group = [weakSelf fetchGroupInfo:groupId error:&error];
+        if (completion) {
+            dispatch_queue_t queue = aQueue;
+            if (!queue) {
+                queue = dispatch_get_main_queue();
+            }
+            dispatch_async(queue, ^(){
+                completion(group, error);
+            });
+        }
+    });
+}
+
+
+- (NSArray *)fetchOccupantList:(NSString *)groupId error:(EMError **)pError{
+    EMError *error = nil;
+    EMGroup *group = [[EMClient sharedClient].groupManager fetchGroupInfo:groupId
+                                                       includeMembersList:YES
+                                                                    error:&error];
+    if (pError) {
+        *pError = error;
+    }
+    
+
+    
+    return group.occupants;
+}
+
+
+- (void)asyncFetchOccupantList:(NSString *)groupId{
+    __weak EChatManager *weakSelf = self;
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(){
+        EMError *error = nil;
+        NSArray *occupants = [weakSelf fetchOccupantList:groupId error:&error];
+        [_delegates didFetchGroupOccupantsList:occupants error:error];
+    });
+}
+
+- (void)asyncFetchOccupantList:(NSString *)groupId
+                    completion:(void (^)(NSArray *occupantsList,EMError *error))completion
+                       onQueue:(dispatch_queue_t)aQueue{
+    __weak EChatManager *weakSelf = self;
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(){
+        EMError *error = nil;
+        NSArray *occupants = [weakSelf fetchOccupantList:groupId error:&error];
+        if (completion) {
+            dispatch_queue_t queue = aQueue;
+            if (!queue) {
+                queue = dispatch_get_main_queue();
+            }
+            dispatch_async(queue, ^(){
+                completion(occupants, error);
+            });
+        }
+    });
+}
+
+- (EMGroup *)fetchGroupInfo:(NSString *)groupId
+       includesOccupantList:(BOOL)includesOccupantList
+                      error:(EMError **)pError{
+    EMError *error = nil;
+    EMGroup *group = [[EMClient sharedClient].groupManager fetchGroupInfo:groupId
+                                                       includeMembersList:includesOccupantList
+                                                                    error:&error];
+    if (pError) {
+        *pError = error;
+    }
+    
+    return group;
+}
+
+- (void)asyncFetchGroupInfo:(NSString *)groupId
+       includesOccupantList:(BOOL)includesOccupantList{
+    __weak EChatManager *weakSelf = self;
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(){
+        EMError *error = nil;
+        EMGroup *group = [weakSelf fetchGroupInfo:groupId includesOccupantList:includesOccupantList error:&error];
+        [_delegates didFetchGroupInfo:group error:error];
+    });
+}
+
+- (void)asyncFetchGroupInfo:(NSString *)groupId
+       includesOccupantList:(BOOL)includesOccupantList
+                 completion:(void (^)(EMGroup *group,EMError *error))completion
+                    onQueue:(dispatch_queue_t)aQueue{
+    __weak EChatManager *weakSelf = self;
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(){
+        EMError *error = nil;
+        EMGroup *group = [weakSelf fetchGroupInfo:groupId includesOccupantList:includesOccupantList error:&error];
+        if (completion) {
+            dispatch_queue_t queue = aQueue;
+            if (!queue) {
+                queue = dispatch_get_main_queue();
+            }
+            dispatch_async(queue, ^(){
+                completion(group, error);
+            });
+        }
+    });
+}
+
+- (NSArray *)fetchGroupBansList:(NSString *)groupId error:(EMError **)pError{
+    
+    EMError *error = nil;
+    NSArray *ret = [[EMClient sharedClient].groupManager fetchGroupBansList:groupId
+                                                                      error:&error];
+    if (pError) {
+        *pError = error;
+    }
+    
+    return ret;
+}
+
+- (void)asyncFetchGroupBansList:(NSString *)groupId{
+    __weak EChatManager *weakSelf = self;
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(){
+        EMError *error = nil;
+        NSArray *bans = [weakSelf fetchGroupBansList:groupId error:&error];
+        [_delegates didFetchGroupBans:groupId list:bans error:error];
+    });
+}
+
+- (void)asyncFetchGroupBansList:(NSString *)groupId
+                     completion:(void (^)(NSArray *groupBans,EMError *error))completion
+                        onQueue:(dispatch_queue_t)aQueue{
+    __weak EChatManager *weakSelf = self;
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(){
+        EMError *error = nil;
+        NSArray *bans = [weakSelf fetchGroupBansList:groupId error:&error];
+        if (completion) {
+            dispatch_queue_t queue = aQueue;
+            if (!queue) {
+                queue = dispatch_get_main_queue();
+            }
+            dispatch_async(queue, ^(){
+                completion(bans, error);
+            });
+        }
+    });
+}
+
+#pragma mark - join public group
+
+- (EMGroup *)joinPublicGroup:(NSString *)groupId error:(EMError **)pError{
+    EMError *error = nil;
+    EMGroup *group = [[EMClient sharedClient].groupManager joinPublicGroup:groupId error:&error];
+    if (pError) {
+        *pError = error;
+    }
+    
+    return group;
+}
+
+- (void)asyncJoinPublicGroup:(NSString *)groupId{
+    __weak EChatManager *weakSelf = self;
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(){
+        EMError *error = nil;
+        EMGroup *ret = [weakSelf joinPublicGroup:groupId error:&error];
+        [_delegates didJoinPublicGroup:ret error:error];
+    });
+}
+
+- (void)asyncJoinPublicGroup:(NSString *)groupId
+                  completion:(void (^)(EMGroup *group,
+                                       EMError *error))completion
+                     onQueue:(dispatch_queue_t)aQueue{
+    
+    __weak EChatManager *weakSelf = self;
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(){
+        EMError *error = nil;
+        EMGroup *ret = [weakSelf joinPublicGroup:groupId error:&error];
+        if (completion) {
+            dispatch_queue_t queue = aQueue;
+            if (!queue) {
+                queue = dispatch_get_main_queue();
+            }
+            dispatch_async(queue, ^(){
+                completion(ret, error);
+            });
+        }
+    });
+}
+
+#pragma mark - Apply to join public group, Founded in 2.0.3 version
+
+- (EMGroup *)applyJoinPublicGroup:(NSString *)groupId
+                    withGroupname:(NSString *)groupName
+                          message:(NSString *)message
+                            error:(EMError **)pError{
+    EMError *error = nil;
+    EMGroup *group = [[EMClient sharedClient].groupManager applyJoinPublicGroup:groupId
+                                                                        message:message
+                                                                          error:&error];
+    if (pError) {
+        *pError = error;
+    }
+    
+    return group;
+}
+
+- (void)asyncApplyJoinPublicGroup:(NSString *)groupId
+                    withGroupname:(NSString *)groupName
+                          message:(NSString *)message{
+    __weak EChatManager *weakSelf = self;
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(){
+        EMError *error = nil;
+        EMGroup *ret = [weakSelf applyJoinPublicGroup:groupId
+                                        withGroupname:groupName
+                                              message:message
+                                                error:&error];
+        
+        [_delegates didApplyJoinPublicGroup:ret error:error];
+    });
+}
+
+- (void)asyncApplyJoinPublicGroup:(NSString *)groupId
+                    withGroupname:(NSString *)groupName
+                          message:(NSString *)message
+                       completion:(void (^)(EMGroup *group,
+                                            EMError *error))completion
+                          onQueue:(dispatch_queue_t)aQueue{
+    __weak EChatManager *weakSelf = self;
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(){
+        EMError *error = nil;
+        EMGroup *ret = [weakSelf applyJoinPublicGroup:groupId
+                                        withGroupname:groupName
+                                              message:message
+                                                error:&error];
+        if (completion) {
+            dispatch_queue_t queue = aQueue;
+            if (!queue) {
+                queue = dispatch_get_main_queue();
+            }
+            dispatch_async(queue, ^(){
+                completion(ret, error);
+            });
+        }
+    });
+}
+
+- (EMGroup *)searchPublicGroupWithGroupId:(NSString *)groupId
+                                    error:(EMError **)pError{
+    EMError *error = nil;
+    EMGroup *group = [[EMClient sharedClient].groupManager searchPublicGroupWithId:groupId error:&error];
+    if (pError) {
+        *pError = error;
+    }
+    
+    return group;
+}
+
+- (void)asyncSearchPublicGroupWithGroupId:(NSString *)groupId
+                               completion:(void (^)(EMGroup *group,
+                                                    EMError *error))completion
+                                  onQueue:(dispatch_queue_t)aQueue{
+    __weak EChatManager *weakSelf = self;
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(){
+        
+        EMError *error = nil;
+        EMGroup *retGroup = [weakSelf searchPublicGroupWithGroupId:groupId error:&error];
+        if (completion) {
+            dispatch_queue_t queue = aQueue;
+            if (!queue) {
+                queue = dispatch_get_main_queue();
+            }
+            dispatch_async(queue, ^(){
+                completion(retGroup, error);
+            });
+        }
+    });
+}
+
+#pragma mark - block group
+
+- (EMGroup *)blockGroup:(NSString *)groupId
+                  error:(EMError **)pError{
+    EMError *error = nil;
+    EMGroup *group = [[EMClient sharedClient].groupManager blockGroup:groupId error:&error];
+    if (pError) {
+        *pError = error;
+    }
+    
+    return group;
+}
+
+- (void)asyncBlockGroup:(NSString *)groupId
+             completion:(void (^)(EMGroup *group,
+                                  EMError *error))completion
+                onQueue:(dispatch_queue_t)aQueue{
+    __weak EChatManager *weakSelf = self;
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(){
+        
+        EMError *error = nil;
+        EMGroup *retGroup = [weakSelf blockGroup:groupId error:&error];
+        if (completion) {
+            dispatch_queue_t queue = aQueue;
+            if (!queue) {
+                queue = dispatch_get_main_queue();
+            }
+            dispatch_async(queue, ^(){
+                completion(retGroup, error);
+            });
+        }
+    });
+}
+
+- (EMGroup *)unblockGroup:(NSString *)groupId
+                    error:(EMError **)pError{
+    EMError *error = nil;
+    EMGroup *group = [[EMClient sharedClient].groupManager unblockGroup:groupId error:&error];
+    if (pError) {
+        *pError = error;
+    }
+    
+    return group;
+}
+
+- (void)asyncUnblockGroup:(NSString *)groupId
+               completion:(void (^)(EMGroup *group,
+                                    EMError *error))completion
+                  onQueue:(dispatch_queue_t)aQueue{
+    __weak EChatManager *weakSelf = self;
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(){
+        
+        EMError *error = nil;
+        EMGroup *retGroup = [weakSelf unblockGroup:groupId error:&error];
+        if (completion) {
+            dispatch_queue_t queue = aQueue;
+            if (!queue) {
+                queue = dispatch_get_main_queue();
+            }
+            dispatch_async(queue, ^(){
+                completion(retGroup, error);
+            });
+        }
+    });
+}
 // deprecated
 - (NSArray *)fetchAllPublicGroupsWithError:(EMError **)pError EM_DEPRECATED_IOS(2_0_0, 2_2_2, "Delete"){
     return nil;

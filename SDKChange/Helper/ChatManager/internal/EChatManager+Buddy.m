@@ -30,9 +30,7 @@
     if (pError) {
         *pError = error;
     }
-    if (error) {
-        return nil;
-    }
+
     return ret;
 }
 
@@ -148,9 +146,7 @@
     if (pError) {
         *pError = error;
     }
-    if (error) {
-        return nil;
-    }
+
     return blockedList;
 }
 

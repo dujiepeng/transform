@@ -21,9 +21,7 @@
     if (pError) {
         *pError = error;
     }
-    if (error) {
-        return nil;
-    }
+
     return chatrooms;
 }
 
@@ -146,9 +144,7 @@
     if (pError) {
         *pError = error;
     }
-    if (error) {
-        return nil;
-    }
+
     return chatroom;
 }
 
@@ -184,9 +180,8 @@
     EMChatroom *chatroom = [[EMClient sharedClient].roomManager leaveChatroom:chatroomId error:&error];
     if (pError) {
         *pError = error;
-    }if (error) {
-        return nil;
     }
+    
     return chatroom;
 }
 

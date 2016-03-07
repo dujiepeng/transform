@@ -58,7 +58,6 @@
 		7198CF0E1C8C194000AC4248 /* EChatManager+PushNotification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "EChatManager+PushNotification.h"; sourceTree = "<group>"; };
 		7198CF0F1C8C194000AC4248 /* EChatManager+PushNotification.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "EChatManager+PushNotification.m"; sourceTree = "<group>"; };
 		7198CF111C8C1C3200AC4248 /* IChatManagerPushNotificationDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IChatManagerPushNotificationDelegate.h; sourceTree = "<group>"; };
-		9031320C1C8A5D3D00F2091C /* SDKChange copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "SDKChange copy-Info.plist"; path = "/Users/dujiepeng/Documents/work/transform/SDKChange/SDKChange copy-Info.plist"; sourceTree = "<absolute>"; };
 		9060230C1C89EA5200073B1C /* EaseMobDefine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EaseMobDefine.h; sourceTree = "<group>"; };
 		9060230D1C89EDB100073B1C /* IChatManagerLoginDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IChatManagerLoginDelegate.h; sourceTree = "<group>"; };
 		90E432431C894CAF00A93DC0 /* SDKChange.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SDKChange.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -165,7 +164,6 @@
 				90E4325D1C894CBA00A93DC0 /* HyphenateSDK */,
 				90E432451C894CAF00A93DC0 /* SDKChange */,
 				90E432441C894CAF00A93DC0 /* Products */,
-				9031320C1C8A5D3D00F2091C /* SDKChange copy-Info.plist */,
 			);
 			sourceTree = "<group>";
 		};
