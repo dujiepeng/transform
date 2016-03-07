@@ -2,22 +2,15 @@
 //  IChatManagerBuddy.h
 //  SDKChange
 //
-//  Created by WYZ on 16/3/6.
-//  Copyright © 2016年 杜洁鹏. All rights reserved.
+//  Created by 杜洁鹏 on 3/7/16.
+//  Copyright © 2016 杜洁鹏. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 #import "IChatManagerBase.h"
+#import "EMSDK.h"
 
-/*!
- @protocol
- @brief 本协议包括：添加好友,删除好友,接受好友请求等方法
- @discussion
- */
 @protocol IChatManagerBuddy <IChatManagerBase>
-
-@required
-
 /*!
  @property
  @brief 好友列表(由EMBuddy对象组成)
@@ -43,9 +36,9 @@
 /*!
  @method
  @brief 手动获取好友列表(异步方法)
- @discussion 好友列表获取完成时, 会调用 didFetchedBuddyList:error(IChatManagerBuddyDelegate.h 中) 回调方法
+ @discussion 好友列表获取完成时, 会调用 didFetchedBuddyList:error(EMChatManagerBuddyDelegate.h 中) 回调方法
  */
-- (void)asyncFetchBuddyList;
+- (void *)asyncFetchBuddyList;
 
 /*!
  @method
@@ -54,8 +47,8 @@
  @param completion 获取好友列表完成后的回调
  @param queue      completion block 回调时的线程
  */
-- (void)asyncFetchBuddyListWithCompletion:(void (^)(NSArray *buddyList, EMError *error))completion
-                                    onQueue:(dispatch_queue_t)aQueue;
+- (void *)asyncFetchBuddyListWithCompletion:(void (^)(NSArray *buddyList, EMError *error))completion
+                                    onQueue:(dispatch_queue_t)queue;
 
 #pragma mark - add buddy
 
@@ -79,10 +72,12 @@
  @brief 将某个用户从好友列表中移除
  @discussion
  @param username 需要移除的好友username
+ @param removeFromRemote 是否将自己从对方好友列表中移除
  @param pError   错误信息
  @result 是否移除成功
  */
 - (BOOL)removeBuddy:(NSString *)username
+   removeFromRemote:(BOOL)removeFromRemote
               error:(EMError **)pError;
 
 #pragma mark - accept buddy request
@@ -109,6 +104,7 @@
  @result 是否拒绝成功
  */
 - (BOOL)rejectBuddyRequest:(NSString *)username
+                    reason:(NSString *)reason
                      error:(EMError **)pError;
 
 #pragma mark - fetch block
@@ -149,7 +145,9 @@
  @brief 将username的用户加到黑名单（该用户不会被从好友中删除，若想删除，请自行调用删除接口）
  @discussion
  @param username        加入黑名单的用户username
- @param relationship    是否同时屏蔽发给对方的消息
+ @param relationship    黑名单关系（both:双向都不接受消息；
+ from:能给黑名单中的人发消息，接收不到黑名单中的人发的消息;
+ to:暂不支持）
  @result 是否成功的向服务器发送了block信息（不包含 服务器是否成功将用户加入黑名单）
  */
 - (EMError *)blockBuddy:(NSString *)username
@@ -159,7 +157,9 @@
  @method
  @brief 异步方法，将username的用户加到黑名单（该用户不会被从好友中删除，若想删除，请自行调用删除接口）
  @param username        加入黑名单的用户username
- @param relationship    是否同时屏蔽发给对方的消息
+ @param relationship    黑名单关系（both:双向都不接受消息；
+ from:能给黑名单中的人发消息，接收不到黑名单中的人发的消息;
+ to:暂不支持）
  @discussion
  函数执行完, 回调[didBlockBuddy:error:]会被触发
  */
@@ -170,7 +170,9 @@
  @method
  @brief 异步方法，将username的用户加到黑名单（该用户不会被从好友中删除，若想删除，请自行调用删除接口）
  @param username       加入黑名单的用户username
- @param relationship   是否同时屏蔽发给对方的消息
+ @param relationship   黑名单关系（both:双向都不接受消息；
+ from:能给黑名单中的人发消息，接收不到黑名单中的人发的消息;
+ to:暂不支持）
  @param completion     完成后的回调
  @param aQueue         回调block时的线程
  @discussion
@@ -213,6 +215,4 @@
 - (void)asyncUnblockBuddy:(NSString *)username
            withCompletion:(void (^)(NSString *username, EMError *error))completion
                   onQueue:(dispatch_queue_t)aQueue;
-
-
 @end

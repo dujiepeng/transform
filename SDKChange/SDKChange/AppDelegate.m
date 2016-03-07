@@ -27,6 +27,7 @@
     EMError *error = nil;
     [[EaseMob sharedInstance].chatManager loginWithUsername:@"6001" password:@"111111" error:&error];
     
+    NSArray *ary = [[EaseMob sharedInstance].chatManager loadAllConversationsFromDatabaseWithAppend2Chat:YES];
     
     return YES;
 }

@@ -2,134 +2,102 @@
 //  EChatManager+Conversation.m
 //  SDKChange
 //
-//  Created by WYZ on 16/3/5.
-//  Copyright © 2016年 杜洁鹏. All rights reserved.
+//  Created by 杜洁鹏 on 3/7/16.
+//  Copyright © 2016 杜洁鹏. All rights reserved.
 //
 
 #import "EChatManager+Conversation.h"
 
 @implementation EChatManager (Conversation)
+@dynamic conversations;
+#pragma mark - properties
 
 - (NSArray *)conversations
 {
     return [[EMClient sharedClient].chatManager getAllConversations];
 }
-
 #pragma mark - database
-
-//获取某个用户的会话
 - (EMConversation *)conversationForChatter:(NSString *)chatter
-                          conversationType:(EMConversationType)type
-{
-    if (!chatter) {
-        return nil;
+                          conversationType:(EMConversationType)type{
+    return [[EMClient sharedClient].chatManager getConversation:chatter
+                                                           type:type
+                                               createIfNotExist:YES];
+}
+
+- (NSArray *)loadAllConversationsFromDatabaseWithAppend2Chat:(BOOL)append2Chat{
+    NSArray *ret = [[EMClient sharedClient].chatManager loadAllConversationsFromDB];
+    if (append2Chat) {
+        [_delegates didUpdateConversationList:self.conversations];
     }
-    return [[EMClient sharedClient].chatManager getConversation:chatter type:type createIfNotExist:YES];;
+    
+    return ret;
 }
 
-//从数据库获取当前登录用户的会话列表,执行后会更新内存中的会话列表
-- (NSArray *)loadAllConversationsFromDatabase
-{
-    NSArray *conversations = [[EMClient sharedClient].chatManager loadAllConversationsFromDB];
-    [_delegates didUpdateConversationList:conversations];
-    return conversations;
-}
+#pragma mark - insert conversation
 
-
-
-#pragma mark - save
-
-//保存单个会话对象到数据库
-- (BOOL)importConversationToDB:(EMConversation *)conversation
-{
-    if (conversation) {
-        return NO;
+- (BOOL)insertConversationToDB:(EMConversation *)conversation
+                   append2Chat:(BOOL)append2Chat{
+    BOOL ret = [[EMClient sharedClient].chatManager importConversations:@[conversation]];
+    if (append2Chat) {
+        [_delegates didUpdateConversationList:self.conversations];
     }
-    return [[EMClient sharedClient].chatManager importConversations:@[conversation]];
+    
+    return ret;
 }
 
-//保存多个个会话对象到数据库
-- (BOOL)importConversationsToDB:(NSArray<EMConversation *> *)conversations
-{
-    if (conversations || conversations.count == 0) {
-        return NO;
+- (NSUInteger)insertConversationsToDB:(NSArray *)conversations
+                          append2Chat:(BOOL)append2Chat{
+    NSUInteger count = 0;
+    for (EMConversation *conversation in conversations) {
+        if ([[EMClient sharedClient].chatManager importConversations:@[conversation]]) {
+            count += 1;
+        }
     }
-    return [[EMClient sharedClient].chatManager importConversations:conversations];
+    
+    return count;
 }
 
-#pragma mark - remove
+#pragma mark - remove conversation
 
-//删除某个会话对象
-- (BOOL)removeConversationByChatter:(NSString *)conversationId
+- (BOOL)removeConversationByChatter:(NSString *)chatter
                      deleteMessages:(BOOL)aDeleteMessages
-{
-    if (!conversationId) {
-        return NO;
+                        append2Chat:(BOOL)append2Chat{
+    BOOL ret = [[EMClient sharedClient].chatManager deleteConversation:chatter deleteMessages:aDeleteMessages];
+    if (append2Chat) {
+        [_delegates didUpdateConversationList:self.conversations];
     }
-    return [[EMClient sharedClient].chatManager deleteConversation:conversationId
-                                                    deleteMessages:aDeleteMessages];
+    
+    return ret;
 }
 
-//删除某几个会话对象
-- (BOOL)removeConversationsByChatters:(NSArray<EMConversation *> *)conversations
-                       deleteMessages:(BOOL)aDeleteMessages
-{
-    if (conversations || conversations.count == 0) {
-        return NO;
+- (NSUInteger)removeConversationsByChatters:(NSArray *)chatters
+                             deleteMessages:(BOOL)aDeleteMessages
+                                append2Chat:(BOOL)append2Chat{
+    NSUInteger count = 0;
+    for (NSString *chatter in chatters) {
+        if ([[EMClient sharedClient].chatManager deleteConversation:chatter deleteMessages:aDeleteMessages]) {
+            count += 1;
+        }
     }
-    return [[EMClient sharedClient].chatManager deleteConversations:conversations
-                                                     deleteMessages:aDeleteMessages];
+    
+    return count;
+}
+
+- (BOOL)removeAllConversationsWithDeleteMessages:(BOOL)aDeleteMessages
+                                     append2Chat:(BOOL)append2Chat{
+    if (self.conversations.count > 0) {
+        BOOL ret = [[EMClient sharedClient].chatManager deleteConversations:self.conversations
+                                                             deleteMessages:aDeleteMessages];
+        if (append2Chat) {
+            [_delegates didUpdateConversationList:self.conversations];
+        }
+        return ret;
+    }
+    
+    return NO;
 }
 
 #pragma mark - message counter
 
-//从数据库获取所有未读消息数量
-- (NSUInteger)loadTotalUnreadMessagesCountFromDatabase
-{
-    NSArray *conversayions = [self loadAllConversationsFromDatabase];
-    __block NSUInteger unreadCount = 0;
-    if (!conversayions || conversayions.count == 0) {
-        return unreadCount;
-    }
-    [conversayions enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        if ([obj isKindOfClass:[EMConversation class]])
-        {
-            EMConversation *conversation = (EMConversation *)obj;
-            unreadCount += conversation.unreadMessagesCount;
-        }
-    }];
-    return unreadCount;
-}
-
-//获取单个会话对象的未读消息数量
-- (NSUInteger)unreadMessagesCountForConversation:(NSString *)conversationId
-                                conversationType:(EMConversationType)conversationType;
-{
-    if (!conversationId) {
-        return 0;
-    }
-    EMConversation *conversation = [[EMClient sharedClient].chatManager getConversation:conversationId type:conversationType createIfNotExist:YES];
-    return conversation.unreadMessagesCount;
-}
-
-#pragma mark - save message
-
-//保存聊天消息到D
-- (BOOL)insertMessageToDB:(EMMessage *)message
-{
-    if (!message) {
-        return NO;
-    }
-    return [[EMClient sharedClient].chatManager importMessages:@[message]];
-}
-
-//保存一组聊天消息
-- (BOOL)insertMessagesToDB:(NSArray<EMMessage *> *)messages
-{
-    if (messages || messages.count == 0) {
-        return NO;
-    }
-    return [[EMClient sharedClient].chatManager importMessages:messages];
-}
 
 @end
